@@ -10,7 +10,7 @@ namespace webApiPractica.Models
         {
 
         }
-        //Nombre de las tablas que existen en la base de datos
+       
         public DbSet<equiposs> equiposs { get; set; }
         public DbSet<marcas> marcas { get; set; }
         public DbSet<tipo_equipo> tipo_equipo { get; set; }

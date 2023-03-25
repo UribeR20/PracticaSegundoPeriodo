@@ -9,14 +9,14 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class estados_equipoController : ControllerBase
     {
-        //Database connection
+        
         private readonly EquiposContext _equiposContext;
         public estados_equipoController(EquiposContext equiposContext)
         {
             _equiposContext = equiposContext;
         }
 
-        //Create Method
+        
         [HttpPost]
         [Route("AddState")]
         public IActionResult AddState([FromBody] estados_equipo stateEquip)
@@ -35,7 +35,6 @@ namespace webApiPractica.Controllers
         }
         
         
-        //Read Mehtod
         [HttpGet]
         [Route("GetAllState")]
         public ActionResult Get()
@@ -58,7 +57,7 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
+        
         [HttpPut]
         [Route("upadateState/{id}")]
         public IActionResult updateState( int id, [FromBody]estados_equipo stateEquipModificar)
@@ -84,7 +83,7 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Delete
+       
         [HttpDelete]
         [Route("deleteState/{id}")]
         public IActionResult deleteState(int id)

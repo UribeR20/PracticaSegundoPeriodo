@@ -9,14 +9,14 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class reservasController : ControllerBase
     {
-        //Database connection
+      
         private readonly EquiposContext _equiposContext;
         public reservasController(EquiposContext equiposContexto)
         {
             _equiposContext = equiposContexto;
         }
 
-        //Create a new mark 
+       
         [HttpPost]
         [Route("AddReserva")]
         public IActionResult AddReserva([FromBody] reservas reserva)
@@ -35,7 +35,7 @@ namespace webApiPractica.Controllers
 
         }
 
-        // Read Method
+      
         [HttpGet]
         [Route("GetAll")]
         public IActionResult Get()
@@ -78,20 +78,20 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
+        
         [HttpPut]
         [Route("update/{id}")]
         public IActionResult updateData(int id, [FromBody] reservas reservasModificar)
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 reservas? reserva = (from r in _equiposContext.reservas where r.reserva_id == id select r).FirstOrDefault();
 
 
                 if (reserva == null) return NotFound();
 
-                //If the ID exist, do the following:
+                
                 reserva.fecha_salida = reservasModificar.fecha_salida;
                 reserva.hora_salida = reservasModificar.hora_salida;
                 reserva.tiempo_reserva= reservasModificar.tiempo_reserva;
@@ -115,7 +115,7 @@ namespace webApiPractica.Controllers
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 reservas? reservaDelete = (from rd in _equiposContext.reservas where rd.reserva_id == id select rd).FirstOrDefault();
 
 

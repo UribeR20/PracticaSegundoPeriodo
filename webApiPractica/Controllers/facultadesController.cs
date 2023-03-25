@@ -9,14 +9,14 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class facultadesController : ControllerBase
     {
-        //Database connection
+       
         private readonly EquiposContext _equiposContext;
         public facultadesController(EquiposContext equiposContexto)
         {
             _equiposContext = equiposContexto;
         }
 
-        //Create a new facultad 
+        
         [HttpPost]
         [Route("AgregarFacultad")]
         public IActionResult addFacultad([FromBody] facultades facultad)
@@ -35,7 +35,7 @@ namespace webApiPractica.Controllers
 
         }
 
-        // Read Method
+       
         [HttpGet]
         [Route("GetAll")]
         public IActionResult Get()
@@ -57,20 +57,20 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
+      
         [HttpPut]
         [Route("update/{id}")]
         public IActionResult updateFacultad(int id, [FromBody] facultades facultadModificar)
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 facultades? facultad = (from f in _equiposContext.facultades where f.facultad_id == id select f).FirstOrDefault();
 
 
                 if (facultad == null) return NotFound();
 
-                //If the ID exist, do the following:
+               
                 facultad.nombre_facultad = facultadModificar.nombre_facultad;
                 
 
@@ -91,7 +91,7 @@ namespace webApiPractica.Controllers
         {
             try
             {
-                //Check if in the database exist this ID
+              
                 facultades? facultad = (from f in _equiposContext.facultades where f.facultad_id == id select f).FirstOrDefault();
 
 

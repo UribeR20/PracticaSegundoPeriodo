@@ -9,14 +9,14 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class tipo_equipoController : ControllerBase
     {
-        //Database connection
+   
         private readonly EquiposContext _equiposContext;
         public tipo_equipoController(EquiposContext equiposContexto)
         {
             _equiposContext = equiposContexto;
         }
 
-        //Create a new mark 
+      
         [HttpPost]
         [Route("AddTypeEquip")]
         public IActionResult addMark([FromBody] tipo_equipo newTipo_Equipo)
@@ -35,7 +35,7 @@ namespace webApiPractica.Controllers
 
         }
 
-        // Read Method
+      
         [HttpGet]
         [Route("GetAll")]
         public IActionResult Get()
@@ -57,20 +57,20 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
+        
         [HttpPut]
         [Route("update/{id}")]
         public IActionResult updateData(int id, [FromBody] tipo_equipo tipo_EquipoModificar)
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 tipo_equipo? tipoEquipo = (from m in _equiposContext.tipo_equipo where m.id_tipo_equipo == id select m).FirstOrDefault();
 
 
                 if (tipoEquipo == null) return NotFound();
 
-                //If the ID exist, do the following:
+               
                 tipoEquipo.descripcion = tipo_EquipoModificar.descripcion;
                 tipoEquipo.estado = tipo_EquipoModificar.estado;
 
@@ -91,7 +91,7 @@ namespace webApiPractica.Controllers
         {
             try
             {
-                //Check if in the database exist this ID
+               
                 tipo_equipo? tipoEquipo = (from m in _equiposContext.tipo_equipo where m.id_tipo_equipo == id select m).FirstOrDefault();
 
 

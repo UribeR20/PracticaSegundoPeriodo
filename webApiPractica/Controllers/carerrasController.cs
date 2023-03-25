@@ -14,8 +14,7 @@ namespace webApiPractica.Controllers
         {
             _equiposContext = equiposContexto;
         }
-
-        //Create a new career 
+ 
         [HttpPost]
         [Route("AddCareer")]
         public IActionResult addCareer([FromBody] carreras carerra)
@@ -34,7 +33,7 @@ namespace webApiPractica.Controllers
 
         }
 
-        // Read Method
+    
         [HttpGet]
         [Route("GetAll")]
         public IActionResult Get()
@@ -66,20 +65,19 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
+     
         [HttpPut]
         [Route("update/{id}")]
         public IActionResult updateCareer(int id, [FromBody] carreras carreraModificar)
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 carreras? carreraAct = (from ca in _equiposContext.carreras where ca.carrera_id == id select ca).FirstOrDefault();
 
 
                 if (carreraAct == null) return NotFound();
 
-                //If the ID exist, do the following:
                 carreraAct.nombre_carrera = carreraModificar.nombre_carrera;
                 
 
@@ -100,7 +98,7 @@ namespace webApiPractica.Controllers
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 carreras? carreraBorrar = (from cb in _equiposContext.carreras where cb.carrera_id == id select cb).FirstOrDefault();
 
 

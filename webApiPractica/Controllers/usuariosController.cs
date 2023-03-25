@@ -9,7 +9,7 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class usuariosController : ControllerBase
     {
-        //Database connection
+        
         private readonly EquiposContext _equiposContext;
 
         public usuariosController(EquiposContext equiposContexto)
@@ -17,7 +17,7 @@ namespace webApiPractica.Controllers
             _equiposContext= equiposContexto;
         }
 
-        //Create method
+       
         [HttpPost]
         [Route("AddUser")]
         public IActionResult addUser([FromBody] usuarios user)
@@ -35,7 +35,7 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Read method
+        
         [HttpGet]
         [Route("GetAll")]
         public IActionResult get()
@@ -57,7 +57,7 @@ namespace webApiPractica.Controllers
                                          u.estado
                                      }).ToList();
 
-                //check
+               
                 if (userList.Count==0)
                 {
                     return NotFound();
@@ -71,20 +71,19 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
         [HttpPut]
         [Route("userUpdate/{id}")]
         public IActionResult updateData(int id, [FromBody] usuarios usuarioModificar)
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 usuarios? userUpdate = (from u in _equiposContext.usuarios where u.usuario_id == id select u).FirstOrDefault();
 
 
                 if (userUpdate == null) return NotFound();
 
-                //If the ID exist, do the following:
+                
                 userUpdate.nombre = usuarioModificar.nombre;
                 userUpdate.documento = usuarioModificar.documento;
                 userUpdate.tipo = usuarioModificar.tipo;
@@ -107,7 +106,7 @@ namespace webApiPractica.Controllers
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 usuarios? userDelete = (from u in _equiposContext.usuarios where u.usuario_id == id select u).FirstOrDefault();
 
 

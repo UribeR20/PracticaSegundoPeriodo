@@ -9,14 +9,14 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class estados_ReservaController : ControllerBase
     {
-        //Database connection
+        
         private readonly EquiposContext _equiposContext;
         public estados_ReservaController(EquiposContext equiposContext)
         {
             _equiposContext = equiposContext;
         }
 
-        //Create Method
+       
         [HttpPost]
         [Route("AddStateBook")]
         public IActionResult AddStateBook([FromBody] estados_reserva stateReserva)
@@ -35,7 +35,7 @@ namespace webApiPractica.Controllers
         }
 
 
-        //Read Mehtod
+      
         [HttpGet]
         [Route("GetAllState")]
         public ActionResult Get()
@@ -58,7 +58,7 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Update
+        
         [HttpPut]
         [Route("upadateState/{id}")]
         public IActionResult updateState(int id, [FromBody] estados_equipo stateReservaModificar)
@@ -83,7 +83,7 @@ namespace webApiPractica.Controllers
             }
         }
 
-        //Delete
+     
         [HttpDelete]
         [Route("deleteState/{id}")]
         public IActionResult deleteState(int id)

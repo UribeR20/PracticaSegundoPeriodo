@@ -9,14 +9,14 @@ namespace webApiPractica.Controllers
     [ApiController]
     public class marcaController : ControllerBase
     {
-        //Database connection
+        
         private readonly EquiposContext _equiposContext;
         public marcaController(EquiposContext equiposContexto)
         {
             _equiposContext = equiposContexto;
         }
         
-        //Create a new mark 
+        
         [HttpPost]
         [Route("AddMark")]
         public IActionResult addMark([FromBody] marcas marcas)
@@ -35,7 +35,7 @@ namespace webApiPractica.Controllers
 
         }
 
-        // Read Method
+        
         [HttpGet]
         [Route("GetAll")]
         public IActionResult Get()
@@ -56,20 +56,20 @@ namespace webApiPractica.Controllers
                 return BadRequest(ex.Message);             }
             }
 
-        //Update
+        
         [HttpPut]
         [Route("update/{id}")]
         public IActionResult updateData(int id, [FromBody] marcas marcasModificar)
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 marcas? marcas = (from m in _equiposContext.marcas where m.id_marcas == id select m).FirstOrDefault();
 
 
                 if (marcas == null) return NotFound();
 
-                //If the ID exist, do the following:
+                
                 marcas.nombre_marca = marcasModificar.nombre_marca;
                 marcas.estados = marcasModificar.estados;
 
@@ -90,7 +90,7 @@ namespace webApiPractica.Controllers
         {
             try
             {
-                //Check if in the database exist this ID
+                
                 marcas? marcas = (from m in _equiposContext.marcas where m.id_marcas == id select m).FirstOrDefault();
 
 

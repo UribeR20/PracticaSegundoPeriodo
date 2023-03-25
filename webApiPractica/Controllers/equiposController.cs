@@ -23,9 +23,23 @@ namespace webApiPractica.Controllers
         [Route("GetAll")]
         public IActionResult Get()
         {
-            List<equipos> listadoequipo = (from e in _equiposContext.equipos select e).ToList();
-
-            if(listadoequipo.Count()==0)
+            //VAR hace una consulta global, el termino NEW devuelve una consulta anonima de todos los campos que se quieran mostrar.
+            var listadoequipo = (from e in _equiposContext.equiposs 
+                                           join m in _equiposContext.marcas on e.marca_id equals m.id_marcas
+                                           join te in _equiposContext.tipo_equipo on e.tipo_equipo_id equals te.id_tipo_equipo
+                                 select new
+                                           {                                               
+                                               e.id_equipos, 
+                                               e.nombre, 
+                                               e.descripcion, 
+                                               e.tipo_equipo_id, 
+                                               tipo_equipo= te.descripcion, 
+                                               e.marca_id, 
+                                               m.nombre_marca
+                                           }).ToList();
+            /*Validacion de listado de equipos, si es 0
+             retorna ERROR, pero si hay más de 1, devuleve el listado*/
+            if (listadoequipo.Count()==0)
             {
                 return NotFound();
             }
@@ -49,8 +63,8 @@ namespace webApiPractica.Controllers
         public IActionResult GetById(int id)
         {
             /// El signo ?, significa que acepta null.
-            equipos? equipo = (from e in _equiposContext
-                          .equipos where e.id_equipos== id
+            equiposs? equipo = (from e in _equiposContext
+                          .equiposs where e.id_equipos== id
                           select e).FirstOrDefault();
             ///Mostrar los datos, pero primero hacer las validaciones
             
@@ -64,8 +78,8 @@ namespace webApiPractica.Controllers
         public IActionResult GetByName(string filtro)
         {
             /// Contains es como decir "LIKE" en BD
-            List<equipos> equipo = (from e in _equiposContext
-                          .equipos
+            List<equiposs> equipo = (from e in _equiposContext
+                          .equiposs
                                where e.nombre.Contains(filtro)
                                select e).ToList();
             ///Mostrar los datos, pero primero hacer las validaciones
@@ -76,11 +90,11 @@ namespace webApiPractica.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult Post([FromBody]equipos equipo)
+        public IActionResult Post([FromBody]equiposs equipo)
         {
             try
             {
-                _equiposContext.equipos.Add(equipo);
+                _equiposContext.equiposs.Add(equipo);
                 _equiposContext.SaveChanges();
                 return Ok(equipo);
 
@@ -91,11 +105,11 @@ namespace webApiPractica.Controllers
         }
         [HttpPut]
         [Route("update/{id}")]
-        public IActionResult Actualizar(int id, [FromBody] equipos equipoActualizar)
+        public IActionResult Actualizar(int id, [FromBody] equiposs equipoActualizar)
         {
             ///validar que exista ese registro en la base de datos
-            equipos? equipo = (from e in _equiposContext
-                         .equipos
+            equiposs? equipo = (from e in _equiposContext
+                         .equiposs
                                where e.id_equipos == id
                                select e).FirstOrDefault();            
 
@@ -117,15 +131,15 @@ namespace webApiPractica.Controllers
         [Route("eliminar/{id}")]
         public IActionResult Delete(int id)
         {
-            equipos? equipo = (from e in _equiposContext
-                         .equipos
+            equiposs? equipo = (from e in _equiposContext
+                         .equiposs
                                where e.id_equipos == id
                                select e).FirstOrDefault();
 
             if (equipo == null) return NotFound();
 
-            _equiposContext.equipos.Attach(equipo);
-            _equiposContext.equipos.Remove(equipo);
+            _equiposContext.equiposs.Attach(equipo);
+            _equiposContext.equiposs.Remove(equipo);
             _equiposContext.SaveChanges();
             return Ok(equipo);
         }
